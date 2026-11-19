@@ -1,4 +1,14 @@
 {
+  "name": "ai-social-content-generator",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm --prefix client run dev",
+    "server": "npm --prefix server start",
+    "build": "npm --prefix client run build",
+    "build:client": "npm --prefix client run build",
+    "start": "npm --prefix server start"
+  },
   "dependencies": {
     "framer-motion": "^12.23.26",
     "lucide-react": "^0.562.0"

@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import generateRoutes from "./routes/generate.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import postRoutes from "./routes/post.routes.js";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 // routes
 app.use("/api/generate", generateRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
 
 // health check
 app.get("/", (req, res) => {

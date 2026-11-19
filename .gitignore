@@ -8,6 +8,10 @@ dist/
 client/dist/
 server/dist/
 
+# Archives
+*.zip
+*.tar.gz
+
 # Environment
 .env
 client/.env

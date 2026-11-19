@@ -17,7 +17,8 @@ import {
   LogOut,
   Sun,
   Moon,
-  Zap
+  Zap,
+  BookmarkCheck
 } from "lucide-react";
 import BackgroundParticles from "../components/BackgroundParticles";
 import { useTheme } from "../context/ThemeContext";
@@ -36,6 +37,7 @@ export default function SidebarLayout() {
     { to: "/", label: "Dashboard", icon: LayoutDashboard },
     { to: "/generate", label: "AI Generator", icon: Sparkles },
     { to: "/studio", label: "Content Studio", icon: Layers },
+    { to: "/library", label: "Library", icon: BookmarkCheck },
     { to: "/calendar", label: "Calendar", icon: CalendarIcon },
     { to: "/analytics", label: "Analytics", icon: BarChart3 },
     { to: "/brand-kit", label: "Brand Kit", icon: Palette },
@@ -46,7 +48,7 @@ export default function SidebarLayout() {
   ];
 
   return (
-    <div className="flex min-h-screen overflow-hidden bg-slate-50 dark:bg-[#070913] text-slate-900 dark:text-slate-100 relative transition-colors duration-300">
+    <div className="flex h-screen w-screen overflow-hidden bg-slate-50 dark:bg-[#070913] text-slate-900 dark:text-slate-100 relative transition-colors duration-300">
       {/* Background Interactive Particles */}
       <BackgroundParticles />
 
@@ -61,7 +63,7 @@ export default function SidebarLayout() {
       <motion.aside
         animate={{ width: isCollapsed ? 88 : 280 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className="glass-panel relative z-20 m-5 mr-0 flex flex-col rounded-3xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-slate-950/40 p-4 backdrop-blur-xl shadow-lg"
+        className="glass-panel relative z-20 m-5 mr-0 flex flex-col h-[calc(100vh-2.5rem)] rounded-3xl border border-slate-200 dark:border-white/5 bg-white/60 dark:bg-slate-950/40 p-4 backdrop-blur-xl shadow-lg shrink-0"
       >
         {/* Sidebar Header */}
         <div className="flex h-14 items-center justify-between px-3">
@@ -228,8 +230,8 @@ export default function SidebarLayout() {
       </motion.aside>
 
       {/* Main Panel */}
-      <main className="flex-1 m-5 ml-0 flex flex-col overflow-hidden glass-panel border border-slate-200 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 rounded-3xl z-10 relative">
-        <div className="flex-1 overflow-y-auto p-8 relative">
+      <main className="flex-1 m-5 ml-0 flex flex-col min-h-0 h-[calc(100vh-2.5rem)] overflow-hidden glass-panel border border-slate-200 dark:border-white/5 bg-white/40 dark:bg-slate-950/20 rounded-3xl z-10 relative">
+        <div className="flex-1 min-h-0 overflow-y-auto p-8 relative">
           <Outlet />
         </div>
       </main>

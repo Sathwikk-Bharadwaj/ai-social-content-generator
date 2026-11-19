@@ -28,6 +28,12 @@ html.light {
   --glass-border: rgba(99, 102, 241, 0.1);
 }
 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-primary);
@@ -38,7 +44,7 @@ body {
   background-attachment: fixed;
   color: rgb(243, 244, 246);
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
   transition: background-color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 

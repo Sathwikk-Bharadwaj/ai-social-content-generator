@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import apiClient from "../api/client";
 import { motion } from "framer-motion";
 import { Mail, Lock, UserPlus, Zap } from "lucide-react";
 import BackgroundParticles from "../components/BackgroundParticles";
@@ -25,7 +25,7 @@ export default function Register() {
     setIsLoading(true);
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await apiClient.post("/api/auth/register", {
         email,
         password,
       });

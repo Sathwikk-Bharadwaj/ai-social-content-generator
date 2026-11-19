@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
+import apiClient from "../api/client";
 import { motion } from "framer-motion";
 import { Mail, Lock, LogIn, Zap } from "lucide-react";
 import BackgroundParticles from "../components/BackgroundParticles";
@@ -18,10 +18,7 @@ export default function Login() {
     setErrorMsg("");
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        { email, password }
-      );
+      const res = await apiClient.post("/api/auth/login", { email, password });
       localStorage.setItem("token", res.data.token);
       navigate("/"); // Redirect to root protected dashboard
     } catch (err) {

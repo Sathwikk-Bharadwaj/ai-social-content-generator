@@ -5,6 +5,7 @@ import SidebarLayout from "./layouts/SidebarLayout";
 import Dashboard from "./pages/Dashboard";
 import Generate from "./pages/Generate";
 import ContentStudio from "./pages/ContentStudio";
+import Library from "./pages/Library";
 import Calendar from "./pages/Calendar";
 import Analytics from "./pages/Analytics";
 import BrandKit from "./pages/BrandKit";
@@ -51,6 +52,12 @@ function AnimatedRoutes() {
           <Route path="studio" element={
             <PageTransition>
               <ContentStudio />
+            </PageTransition>
+          } />
+
+          <Route path="library" element={
+            <PageTransition>
+              <Library />
             </PageTransition>
           } />
 

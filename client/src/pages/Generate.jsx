@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import axios from "axios";
+import apiClient from "../api/client";
 import { 
   Sparkles, 
   Send, 
@@ -19,7 +19,8 @@ import {
   Minimize2,
   TrendingUp,
   FileText,
-  Bot
+  Bot,
+  BookmarkPlus
 } from "lucide-react";
 
 export default function Generate() {
@@ -39,6 +40,8 @@ export default function Generate() {
   const [generatedContent, setGeneratedContent] = useState("");
   const [displayedContent, setDisplayedContent] = useState(""); // For typing effect
   const [copied, setCopied] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
   const [activePreview, setActivePreview] = useState("twitter");
 
   // Pipeline stepper steps
@@ -91,6 +94,27 @@ export default function Generate() {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // Save to Studio helper
+  const handleSaveToStudio = async () => {
+    if (!displayedContent || isSaving) return;
+    setIsSaving(true);
+    try {
+      await apiClient.post("/api/posts", {
+        title: topic || `${platform.toUpperCase()} Post`,
+        content: displayedContent,
+        platform,
+        tone,
+        status: "draft",
+      });
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      console.error("Save error:", err);
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
   const handleGenerate = async (e) => {
     e.preventDefault();
     if (!topic.trim()) return;
@@ -108,7 +132,7 @@ export default function Generate() {
 
     try {
       // API request to backend
-      const res = await axios.post("http://localhost:5000/api/generate", {
+      const res = await apiClient.post("/api/generate", {
         platform,
         tone,
         topic,
@@ -326,6 +350,15 @@ export default function Generate() {
                     >
                       {copied ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} />}
                       <span>{copied ? "Copied" : "Copy"}</span>
+                    </button>
+                    <button
+                      onClick={handleSaveToStudio}
+                      disabled={isSaving}
+                      className="p-2 rounded-lg bg-indigo-600/10 hover:bg-indigo-600/20 border border-indigo-500/30 text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 transition-colors cursor-pointer text-xs flex items-center gap-1.5 font-semibold"
+                      title="Save to Content Studio"
+                    >
+                      {saved ? <Check size={13} className="text-emerald-500" /> : <BookmarkPlus size={13} />}
+                      <span>{saved ? "Saved to Studio" : isSaving ? "Saving..." : "Save to Studio"}</span>
                     </button>
                     <button
                       onClick={handleGenerate}
